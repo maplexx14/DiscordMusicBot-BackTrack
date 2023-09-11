@@ -63,7 +63,7 @@ async def play(ctx, *, link):
                                                color=0x00BBFF))
             voiceChannel.play(discord.FFmpegPCMAudio(media + link + ".mp3"))
         except:
-            await ctx.send(embed=discord.Embed(title="Error!", description="Please join a voice channel to play music.",
+            await ctx.send(embed=discord.Embed(title="Ошибка", description="Присоединись к каналу для проигрывания музыки",
                                                color=0x00BBFF))
         return
 
@@ -96,7 +96,7 @@ async def resume(ctx):
     voiceChannel = audioTools.getVoiceChannel(ctx, bot)
     # if the bot isn't connected to a voice channel, then voiceChannel = -1
     if voiceChannel == -1:
-        await ctx.send(embed = discord.Embed(title = "Error!", description = "Not in a voice channel", color = 0x880000))
+        await ctx.send(embed = discord.Embed(title = "Ошибка", description = "Не в войсе", color = 0x880000))
         return
     voiceChannel.resume()
 
@@ -108,7 +108,7 @@ async def skip(ctx):
     voiceChannel = audioTools.getVoiceChannel(ctx, bot)
     # if the bot isn't connected to a voice channel, then voiceChannel = -1
     if voiceChannel == -1:
-        await ctx.send(embed = discord.Embed(title = "Error!", description = "Not in a voice channel", color = 0x880000))
+        await ctx.send(embed = discord.Embed(title = "Ошибка", description = "Не в войсе", color = 0x880000))
         return
     voiceChannel.stop()
 
