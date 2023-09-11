@@ -7,7 +7,7 @@ import asyncio
 import os
 import audioTools
 
-token = 'OTI4NTgxNjA5ODYxNTU4Mjcz.GpdNYR.6-WTomo4sYg7YQdyN9fSHAAQqHyqF0RzfbHNKQ'
+token = ''
 prefix = '!'
 intents = discord.Intents.default()
 intents.message_content = True
