@@ -1,3 +1,4 @@
+# Импорт библиотек
 import discord
 import requests
 from discord.ext import commands
@@ -7,7 +8,8 @@ import asyncio
 import os
 import audioTools
 
-token = ''
+# Переменные
+token = 'token'
 prefix = '!'
 intents = discord.Intents.default()
 intents.message_content = True
@@ -16,7 +18,7 @@ bot = commands.Bot(command_prefix = prefix, intents = intents)
 
 bot.remove_command('help')
 media = 'media/'
-
+# Настройка ffmpeg
 ytdlOps = {
     'format': 'mp3/bestaudio/best',
     'outtmpl': 'media/%(id)s.%(ext)s',
@@ -26,12 +28,15 @@ ytdlOps = {
         'preferredcodec': 'mp3',
     }]
 }
+
+# Начало активности бота
 @bot.event
 async def on_ready():
     print('Bot online')
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name = 'Cyberpunk 2777'))
 
 
+# Запуск музыки в канале
 @bot.command(aliases=['p'])
 async def play(ctx, *, link):
     print(ctx.message.author.name + "#" + ctx.message.author.discriminator + " played some music. " + str(link))
@@ -57,6 +62,7 @@ async def play(ctx, *, link):
  
     if os.path.isfile(media + link + ".mp3"):
         try:
+            # Вывод сообщений о статусе трека 
             await ctx.send(embed=discord.Embed(title='Сейчас играет', description=f'Поставил **{ctx.message.author.name}**',
                                                color=0x00BBFF))
             voiceChannel.play(discord.FFmpegPCMAudio(media + link + ".mp3"))
@@ -75,8 +81,8 @@ async def play(ctx, *, link):
 
 
 
+# Команда паузы
 @bot.command()
-
 async def pause(ctx):
 
     voiceChannel = audioTools.getVoiceChannel(ctx, bot)
@@ -86,7 +92,7 @@ async def pause(ctx):
         return
     voiceChannel.pause()
 
-
+# Продолжение трека
 @bot.command()
 async def resume(ctx):
 
@@ -98,7 +104,7 @@ async def resume(ctx):
     voiceChannel.resume()
 
 
-
+# Пропуск трека
 @bot.command()
 async def skip(ctx):
  
@@ -110,7 +116,7 @@ async def skip(ctx):
     voiceChannel.stop()
 
 
-
+# Команда для присоединения бота к каналу
 @bot.command()
 async def join(ctx):
     try:
@@ -122,7 +128,7 @@ async def join(ctx):
     except IndexError:
         await ctx.channel.send('Ты не в войсе')
 
-
+# Команда отключения бота от канала
 @bot.command()
 async def dc(ctx):
     if ctx.guild.voice_client in bot.voice_clients:
@@ -132,5 +138,5 @@ async def dc(ctx):
         await ctx.channel.send('Я не в войсе')
 
 
-
+# Запуск бота
 bot.run(token)
