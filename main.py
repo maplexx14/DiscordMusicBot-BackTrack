@@ -18,7 +18,8 @@ bot = commands.Bot(command_prefix = prefix, intents = intents)
 
 bot.remove_command('help')
 media = 'media/'
-# Настройка ffmpeg
+
+# Настройка параментров ffmpeg
 ytdlOps = {
     'format': 'mp3/bestaudio/best',
     'outtmpl': 'media/%(id)s.%(ext)s',
